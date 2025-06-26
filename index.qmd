@@ -1,0 +1,43 @@
+---
+title: "Billboard Graphic"
+---
+
+
+```{r}
+suppressPackageStartupMessages(library(tidyverse))
+```
+
+```{r}
+# Load necessary libraries
+library(tidyverse)
+library(tidyr)
+
+# Load the billboard data
+data("billboard")
+
+# Prepare the data
+top_songs <- billboard %>%
+  filter(artist %in% c("Usher", "Britney Spears", "Destiny's Child", "Ricky Martin")) %>%
+  pivot_longer(cols = starts_with("wk"), names_to = "week", values_to = "rank", names_prefix = "wk") %>%
+  filter(!is.na(rank)) %>%
+  mutate(week = as.integer(week))
+
+# Create the plot
+ggplot(top_songs, aes(x = week, y = rank, color = track)) +
+  geom_line(size = 1.2) +
+  scale_y_reverse() +  # Lower rank is better (rank 1 is top!)
+  labs(
+    title = "📈 Billboard Hot 100 Chart Trends",
+    subtitle = "Chart performance of selected artists in 2000",
+    x = "Week on Chart",
+    y = "Billboard Rank",
+    color = "Track"
+  ) +
+  theme_minimal(base_size = 14) +
+  theme(
+    plot.title = element_text(face = "bold"),
+    plot.subtitle = element_text(margin = margin(b = 10)),
+    legend.position = "bottom"
+  )
+```
+
