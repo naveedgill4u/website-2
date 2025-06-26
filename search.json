@@ -1,0 +1,16 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Billboard Graphic",
+    "section": "",
+    "text": "suppressPackageStartupMessages(library(tidyverse))\n\n\n# Load necessary libraries\nlibrary(tidyverse)\nlibrary(tidyr)\n\n# Load the billboard data\ndata(\"billboard\")\n\n# Prepare the data\ntop_songs &lt;- billboard %&gt;%\n  filter(artist %in% c(\"Usher\", \"Britney Spears\", \"Destiny's Child\", \"Ricky Martin\")) %&gt;%\n  pivot_longer(cols = starts_with(\"wk\"), names_to = \"week\", values_to = \"rank\", names_prefix = \"wk\") %&gt;%\n  filter(!is.na(rank)) %&gt;%\n  mutate(week = as.integer(week))\n\n# Create the plot\nggplot(top_songs, aes(x = week, y = rank, color = track)) +\n  geom_line(size = 1.2) +\n  scale_y_reverse() +  # Lower rank is better (rank 1 is top!)\n  labs(\n    title = \"📈 Billboard Hot 100 Chart Trends\",\n    subtitle = \"Chart performance of selected artists in 2000\",\n    x = \"Week on Chart\",\n    y = \"Billboard Rank\",\n    color = \"Track\"\n  ) +\n  theme_minimal(base_size = 14) +\n  theme(\n    plot.title = element_text(face = \"bold\"),\n    plot.subtitle = element_text(margin = margin(b = 10)),\n    legend.position = \"bottom\"\n  )\n\nWarning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.\nℹ Please use `linewidth` instead."
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "About this site"
+  }
+]
