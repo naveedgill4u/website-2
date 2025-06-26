@@ -8,11 +8,7 @@ suppressPackageStartupMessages(library(tidyverse))
 ```
 
 ```{r}
-# Load necessary libraries
-library(tidyverse)
-library(tidyr)
 
-# Load the billboard data
 data("billboard")
 
 # Prepare the data
